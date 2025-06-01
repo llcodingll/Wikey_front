@@ -1,24 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import SurveyForm from "./components/SurveyForm";
+import "./styles/global.css";
 
 function App() {
+  const handleSurveySubmit = (answers: Record<string, number>) => {
+    console.log("Survey submitted with answers:", answers);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SurveyForm onSubmit={handleSurveySubmit} />
     </div>
   );
 }
