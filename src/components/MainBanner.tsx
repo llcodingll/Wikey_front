@@ -20,8 +20,7 @@ const MainBanner = ({ onSurveyClick }: MainBannerProps) => (
       당신만을 위한 위스키 추천
     </Typography>
     <Typography variant="h6" mb={3}>
-      위스키 입문자를 위한 쉽고 감각적인 추천, 바(bar) 분위기의 우드톤
-      웹사이트에서 시작하세요.
+      위스키 입문자를 위한 쉽고 감각적인 추천
     </Typography>
     <Button
       variant="contained"
