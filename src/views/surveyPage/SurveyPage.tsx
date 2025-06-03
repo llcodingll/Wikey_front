@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SurveyForm from "../../components/surveys/SurveyForm";
 import RegionSelector from "../../components/surveys/RegionSelector";
 import SurveyPreview from "../../components/surveys/SurveyPreview";
@@ -10,6 +11,8 @@ const SurveyPage = () => {
   const [step, setStep] = useState<"region" | "survey" | "preview">("region");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [surveyStep, setSurveyStep] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleRegionSelect = (selected: string[]) => {
     setRegions(selected);
@@ -34,9 +37,9 @@ const SurveyPage = () => {
     if (surveyStep > 0) setSurveyStep(surveyStep - 1);
   };
 
+  // 여기서 결과 페이지로 이동 + state로 데이터 전달
   const handleSubmit = () => {
-    console.log("최종 제출:", { regions, answers });
-    // 실제 제출 로직 (API 호출 등)
+    navigate("/survey-result", { state: { regions, answers } });
   };
 
   const handleEdit = () => {
@@ -47,15 +50,15 @@ const SurveyPage = () => {
     step === "region"
       ? 0
       : step === "survey"
-      ? ((surveyStep + 1) / QUESTIONS.length) * 100
-      : 100;
+        ? ((surveyStep + 1) / QUESTIONS.length) * 100
+        : 100;
 
   const stepText =
     step === "region"
       ? "1"
       : step === "survey"
-      ? surveyStep + 1
-      : QUESTIONS.length;
+        ? surveyStep + 1
+        : QUESTIONS.length;
 
   return (
     <Box
@@ -129,7 +132,7 @@ const SurveyPage = () => {
           <SurveyPreview
             regions={regions}
             answers={answers}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit} // 여기서 handleSubmit을 넘김
             onEdit={handleEdit}
           />
         )}

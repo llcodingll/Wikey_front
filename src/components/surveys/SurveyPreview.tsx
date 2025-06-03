@@ -1,6 +1,7 @@
 import { Typography, Box, Button, Chip, Stack, Divider } from "@mui/material";
 import { QUESTIONS } from "../../constants/surveyQuestions";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface SurveyPreviewProps {
   regions: string[];
@@ -12,9 +13,15 @@ interface SurveyPreviewProps {
 const SurveyPreview: React.FC<SurveyPreviewProps> = ({
   regions,
   answers,
-  onSubmit,
   onEdit,
 }) => {
+  const navigate = useNavigate();
+
+  // 제출 버튼 클릭 시 결과 페이지로 이동 + 설문 응답 전달
+  const handleSubmit = () => {
+    navigate("/survey-result", { state: { answers, regions } });
+  };
+
   return (
     <Box>
       <Typography
@@ -80,8 +87,14 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({
       </Typography>
       <Box sx={{ mb: 3, textAlign: "left" }}>
         {QUESTIONS.map((q) => (
-          <Typography key={q.key} sx={{ mb: 1.2, fontSize: 15, color: "#3b2d1f" }}>
-            <b>{q.label}</b> <span style={{ color: "#8b5a2b" }}>{q.options[answers[q.key]]}</span>
+          <Typography
+            key={q.key}
+            sx={{ mb: 1.2, fontSize: 15, color: "#3b2d1f" }}
+          >
+            <b>{q.label}</b>{" "}
+            <span style={{ color: "#8b5a2b" }}>
+              {q.options[answers[q.key]]}
+            </span>
           </Typography>
         ))}
       </Box>
@@ -103,7 +116,7 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({
         </Button>
         <Button
           variant="contained"
-          onClick={onSubmit}
+          onClick={handleSubmit}
           sx={{
             background: "#8b5a2b",
             color: "#fff",
