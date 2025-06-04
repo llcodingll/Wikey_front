@@ -17,7 +17,6 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  // 제출 버튼 클릭 시 결과 페이지로 이동 + 설문 응답 전달
   const handleSubmit = () => {
     navigate("/survey-result", { state: { answers, regions } });
   };
@@ -29,105 +28,99 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({
         sx={{
           mb: 3,
           fontWeight: 800,
-          color: "#3b2d1f",
+          color: "#254034",
           letterSpacing: "-0.03em",
         }}
       >
-        설문 결과 미리보기
+        Survey Preview
       </Typography>
-
-      {/* 선택한 지역 - 태그 스타일 */}
       <Typography
         sx={{
           mb: 1,
           fontWeight: 700,
-          color: "#8b5a2b",
+          color: "#889982",
           fontSize: 16,
         }}
       >
-        선택한 지역
+        Selected Regions
       </Typography>
       <Stack direction="row" spacing={1} sx={{ mb: 3, flexWrap: "wrap" }}>
         {regions.length === 0 ? (
-          <Typography sx={{ color: "#ccc" }}>선택한 지역 없음</Typography>
+          <Typography sx={{ color: "#ccc" }}>No regions selected</Typography>
         ) : (
           regions.map((region) => (
             <Chip
               key={region}
               label={`#${region}`}
               sx={{
-                background: "#f9e6c7",
-                color: "#8b5a2b",
+                background: "#F6F4F3",
+                color: "#889982",
                 fontWeight: 700,
                 fontSize: 15,
                 borderRadius: 2,
                 px: 1.5,
                 py: 0.5,
                 mb: 1,
-                boxShadow: "0 1px 4px 0 rgba(139,90,43,0.06)",
-                border: "1px solid #e5c896",
+                boxShadow: "0 1px 4px 0 rgba(136,153,130,0.06)",
+                border: "1px solid #E6D9C3",
               }}
             />
           ))
         )}
       </Stack>
-
-      <Divider sx={{ mb: 3, background: "#e5c896" }} />
-
-      {/* 선택한 특성 */}
+      <Divider sx={{ mb: 3, background: "#E6D9C3" }} />
       <Typography
         sx={{
           mb: 1,
           fontWeight: 700,
-          color: "#8b5a2b",
+          color: "#889982",
           fontSize: 16,
         }}
       >
-        선택한 특성
+        Selected Characteristics
       </Typography>
       <Box sx={{ mb: 3, textAlign: "left" }}>
         {QUESTIONS.map((q) => (
           <Typography
             key={q.key}
-            sx={{ mb: 1.2, fontSize: 15, color: "#3b2d1f" }}
+            sx={{ mb: 1.2, fontSize: 15, color: "#254034" }}
           >
             <b>{q.label}</b>{" "}
-            <span style={{ color: "#8b5a2b" }}>
+            <span style={{ color: "#889982" }}>
               {q.options[answers[q.key]]}
             </span>
           </Typography>
         ))}
       </Box>
-
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
         <Button
           variant="outlined"
           onClick={onEdit}
           sx={{
-            color: "#8b5a2b",
-            borderColor: "#8b5a2b",
+            color: "#889982",
+            borderColor: "#889982",
             fontWeight: 700,
             borderRadius: 2,
             px: 3,
-            "&:hover": { borderColor: "#6b4226", background: "#f9e6c7" },
+            "&:hover": { borderColor: "#6D4C2C", background: "#F6F4F3" },
           }}
         >
-          수정하기
+          Edit
         </Button>
         <Button
           variant="contained"
           onClick={handleSubmit}
           sx={{
-            background: "#8b5a2b",
+            background: "#889982",
             color: "#fff",
             fontWeight: 700,
             borderRadius: 2,
             px: 3,
-            "&:hover": { background: "#6b4226" },
-            boxShadow: "0 2px 8px 0 rgba(139,90,43,0.10)",
+            "&:hover": { background: "#6D4C2C" },
+            boxShadow: "0 2px 8px 0 rgba(136,153,130,0.10)",
           }}
         >
-          제출하기
+          Submit
         </Button>
       </Stack>
     </Box>

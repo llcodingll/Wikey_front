@@ -15,7 +15,7 @@ const SurveyResultCard = ({
 }: SurveyResultCardProps) => (
   <Box
     sx={{
-      background: "#c0392b",
+      background: "#B48A78",
       color: "#fff",
       borderRadius: 5,
       p: 4,

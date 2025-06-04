@@ -1,38 +1,37 @@
 export const QUESTIONS = [
-    {
-      key: "Body",
-      label: "선호하는 위스키의 바디감은?",
-      options: ["매우 가벼움", "가벼움", "중간", "무거움", "매우 무거움"],
-    },
-    {
-      key: "Sweetness",
-      label: "선호하는 단맛 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-    {
-      key: "Smoky",
-      label: "선호하는 스모키함 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-    {
-      key: "Spicy",
-      label: "선호하는 스파이시함 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-    {
-      key: "Fruity",
-      label: "선호하는 과일향 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-    {
-      key: "Floral",
-      label: "선호하는 꽃향 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-    {
-      key: "Winey",
-      label: "선호하는 와인향 수준은?",
-      options: ["매우 약함", "약함", "중간", "강함", "매우 강함"],
-    },
-  ];
-  
+  {
+    key: "Body",
+    label: "What is your preferred whisky body?",
+    options: ["Very Light", "Light", "Medium", "Heavy", "Very Heavy"],
+  },
+  {
+    key: "Sweetness",
+    label: "What is your preferred sweetness level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+  {
+    key: "Smoky",
+    label: "What is your preferred smokiness level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+  {
+    key: "Spicy",
+    label: "What is your preferred spiciness level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+  {
+    key: "Fruity",
+    label: "What is your preferred fruitiness level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+  {
+    key: "Floral",
+    label: "What is your preferred floral scent level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+  {
+    key: "Winey",
+    label: "What is your preferred wine aroma level?",
+    options: ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"],
+  },
+];

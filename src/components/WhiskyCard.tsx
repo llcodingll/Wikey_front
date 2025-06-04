@@ -1,5 +1,7 @@
 import { Card, Typography, Box } from "@mui/material";
 
+const LEVEL_EMOJI = '🟤';
+
 interface WhiskyCardProps {
   distillery: string;
   body: number;
@@ -8,6 +10,11 @@ interface WhiskyCardProps {
   fruity: number;
   floral: number;
 }
+
+const renderEmojis = (value: number) => {
+  const count = Math.max(0, Math.min(value, 5));
+  return <span>{LEVEL_EMOJI.repeat(count)}</span>;
+};
 
 const WhiskyCard = ({
   distillery,
@@ -55,11 +62,11 @@ const WhiskyCard = ({
         fontWeight: 500,
       }}
     >
-      <Typography variant="body2">Body: {body}</Typography>
-      <Typography variant="body2">Sweetness: {sweetness}</Typography>
-      <Typography variant="body2">Smoky: {smoky}</Typography>
-      <Typography variant="body2">Fruity: {fruity}</Typography>
-      <Typography variant="body2">Floral: {floral}</Typography>
+      <Typography variant="body2">Body: {renderEmojis(body)}</Typography>
+      <Typography variant="body2">Sweetness: {renderEmojis(sweetness)}</Typography>
+      <Typography variant="body2">Smoky: {renderEmojis(smoky)}</Typography>
+      <Typography variant="body2">Fruity: {renderEmojis(fruity)}</Typography>
+      <Typography variant="body2">Floral: {renderEmojis(floral)}</Typography>
     </Box>
   </Card>
 );

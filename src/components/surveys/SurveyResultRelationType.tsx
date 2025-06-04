@@ -12,12 +12,11 @@ interface SurveyResultRelationTypeProps {
 }
 
 const SurveyResultRelationType = ({ types }: SurveyResultRelationTypeProps) => (
-  <Box sx={{ background: "#fff", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
-    <Typography variant="h6" fontWeight={800} sx={{ mb: 2, color: "#3b2d1f" }}>
-      나의 관계 유형
+  <Box sx={{ background: "#F6F4F3", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
+    <Typography variant="h6" fontWeight={800} sx={{ mb: 2, color: "#254034" }}>
+      My Relationship Types
     </Typography>
     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-      {/* 파이차트는 라이브러리로 대체 가능, 여기선 색상박스와 수치로 대체 */}
       {types.map((t) => (
         <Box key={t.label} sx={{ mr: 2, textAlign: "center" }}>
           <Box
@@ -40,9 +39,9 @@ const SurveyResultRelationType = ({ types }: SurveyResultRelationTypeProps) => (
     {types.map((t) => (
       <Box key={t.label} sx={{ mb: 1.5 }}>
         <Typography fontWeight={700} color={t.color}>
-          {t.label}형
+          {t.label} Type
         </Typography>
-        <Typography sx={{ fontSize: 15 }}>{t.description}</Typography>
+        <Typography sx={{ fontSize: 15, color: "#254034" }}>{t.description}</Typography>
       </Box>
     ))}
   </Box>

@@ -37,7 +37,6 @@ const SurveyPage = () => {
     if (surveyStep > 0) setSurveyStep(surveyStep - 1);
   };
 
-  // 여기서 결과 페이지로 이동 + state로 데이터 전달
   const handleSubmit = () => {
     navigate("/survey-result", { state: { regions, answers } });
   };
@@ -67,7 +66,7 @@ const SurveyPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(180deg, #e8d9c7 0%, #f3e5c8 100%)",
+        background: "linear-gradient(180deg, #E8D9C7 0%, #F6F4F3 100%)",
         fontFamily: "Pretendard, sans-serif",
         p: 2,
       }}
@@ -81,15 +80,12 @@ const SurveyPage = () => {
           boxShadow: "0 6px 24px 0 rgba(80, 60, 30, 0.12)",
           overflow: "hidden",
           background: "rgba(255, 253, 250, 0.95)",
-          border: "1px solid #d4c7b0",
+          border: "1px solid #D4C7B0",
           px: { xs: 2, sm: 3 },
           py: { xs: 4, sm: 5 },
           textAlign: "center",
         }}
       >
-        {/* 로고 예시 (이미지 파일 필요) */}
-        {/* <img src="/logo.png" alt="Whisky Survey" style={{ width: 120, marginBottom: 16 }} /> */}
-        {/* 상단 진행도/단계 */}
         <Box sx={{ mb: 2 }}>
           <LinearProgress
             variant="determinate"
@@ -97,9 +93,9 @@ const SurveyPage = () => {
             sx={{
               height: 8,
               borderRadius: 3,
-              background: "#d4c7b0",
+              background: "#D4C7B0",
               "& .MuiLinearProgress-bar": {
-                background: "#8b5a2b",
+                background: "#889982",
               },
             }}
           />
@@ -107,7 +103,7 @@ const SurveyPage = () => {
             sx={{
               mt: 1,
               fontSize: 14,
-              color: "#8b5a2b",
+              color: "#889982",
               letterSpacing: "0.05em",
               fontWeight: 600,
             }}
@@ -132,7 +128,7 @@ const SurveyPage = () => {
           <SurveyPreview
             regions={regions}
             answers={answers}
-            onSubmit={handleSubmit} // 여기서 handleSubmit을 넘김
+            onSubmit={handleSubmit}
             onEdit={handleEdit}
           />
         )}

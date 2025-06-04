@@ -15,7 +15,7 @@ interface SurveyResultStatsProps {
 }
 
 const SurveyResultStats = ({ stats }: SurveyResultStatsProps) => (
-  <Box sx={{ background: "#fff", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
+  <Box sx={{ background: "#F6F4F3", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
     {stats.map((stat) => (
       <Box key={stat.labelLeft} sx={{ mb: 2 }}>
         <Stack
@@ -23,15 +23,15 @@ const SurveyResultStats = ({ stats }: SurveyResultStatsProps) => (
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontWeight={700} color="#8b5a2b">
+          <Typography fontWeight={700} color="#6D4C2C">
             {stat.labelLeft}
           </Typography>
-          <Typography fontWeight={700} color="#8b5a2b">
+          <Typography fontWeight={700} color="#6D4C2C">
             {stat.labelRight}
           </Typography>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 0.5 }}>
-          <Typography fontWeight={700} color="#c0392b" sx={{ minWidth: 36 }}>
+          <Typography fontWeight={700} color="#B48A78" sx={{ minWidth: 36 }}>
             {stat.leftShort}
           </Typography>
           <LinearProgress
@@ -43,17 +43,17 @@ const SurveyResultStats = ({ stats }: SurveyResultStatsProps) => (
               borderRadius: 6,
               background: "#f9e6c7",
               "& .MuiLinearProgress-bar": {
-                background: "#c0392b",
+                background: "#B48A78",
               },
             }}
           />
-          <Typography fontWeight={700} color="#c0392b" sx={{ minWidth: 36 }}>
+          <Typography fontWeight={700} color="#B48A78" sx={{ minWidth: 36 }}>
             {stat.rightShort}
           </Typography>
         </Stack>
         <Stack direction="row" justifyContent="space-between" sx={{ mt: 0.5 }}>
-          <Typography color="#8b5a2b">{stat.leftValue}</Typography>
-          <Typography color="#8b5a2b">{stat.rightValue}</Typography>
+          <Typography color="#6D4C2C">{stat.leftValue}</Typography>
+          <Typography color="#6D4C2C">{stat.rightValue}</Typography>
         </Stack>
       </Box>
     ))}
