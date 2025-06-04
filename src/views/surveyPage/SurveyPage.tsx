@@ -67,7 +67,7 @@ const SurveyPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(180deg, #e8d9c7 0%, #f0e6d8 100%)",
+        background: "linear-gradient(180deg, #e8d9c7 0%, #f3e5c8 100%)",
         fontFamily: "Pretendard, sans-serif",
         p: 2,
       }}

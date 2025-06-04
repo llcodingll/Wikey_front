@@ -7,27 +7,47 @@ type MainBannerProps = {
 const MainBanner = ({ onSurveyClick }: MainBannerProps) => (
   <Box
     sx={{
-      background: "linear-gradient(90deg, #a47149 0%, #6b3e26 100%)",
-      color: "#fff",
-      borderRadius: 3,
-      p: 5,
+      background: "#F6F4F3",
+      color: "#254034",
+      borderRadius: 13,
+      p: { xs: 3, md: 7 },
       textAlign: "center",
-      mb: 4,
-      boxShadow: 3,
+      mb: 6,
+      boxShadow: "0 4px 32px 0 rgba(37,64,52,0.08)",
+      maxWidth: 1100,
+      mx: "auto",
     }}
   >
-    <Typography variant="h3" fontWeight="bold" mb={2}>
-      당신만을 위한 위스키 추천
+    <Typography
+      variant="h2"
+      fontWeight="bold"
+      mb={2}
+      sx={{ letterSpacing: "-1px", color: "#254034" }}
+    >
+      Find Your Perfect Whisky
     </Typography>
-    <Typography variant="h6" mb={3}>
-      위스키 입문자를 위한 쉽고 감각적인 추천
+    <Typography variant="h5" mb={4} sx={{ color: "#B48A78" }}>
+      A modern, intuitive guide for whisky beginners and enthusiasts
     </Typography>
     <Button
       variant="contained"
-      sx={{ background: "#704214", fontWeight: "bold" }}
+      sx={{
+        background: "#A8B6A0",
+        color: "#254034",
+        fontWeight: "bold",
+        borderRadius: 8,
+        px: 5,
+        py: 1.7,
+        fontSize: 18,
+        boxShadow: "0 2px 8px 0 rgba(168,182,160,0.10)",
+        "&:hover": {
+          background: "#889982",
+          color: "#F6F4F3",
+        },
+      }}
       onClick={onSurveyClick}
     >
-      내 취향 찾기
+      Start Your Taste Survey
     </Button>
   </Box>
 );

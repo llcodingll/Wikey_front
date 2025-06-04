@@ -50,37 +50,48 @@ const MainPage = () => {
   );
 
   return (
-    <Box sx={{ background: "#f2ede3", minHeight: "100vh", p: 4 }}>
+    <Box
+      sx={{
+        background: "#254034",
+        minHeight: "100vh",
+        p: { xs: 2, md: 6 },
+      }}
+    >
       <MainBanner onSurveyClick={handleSurveyClick} />
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          gap: 4,
-          mt: 4,
+          gap: 6,
+          mt: 2,
+          maxWidth: 1400,
+          mx: "auto",
         }}
       >
         {/* Sidebar */}
         <Box
           sx={{
-            flex: "0 0 300px",
-            width: { xs: "100%", md: "300px" },
+            flex: "0 0 260px",
+            width: { xs: "100%", md: "260px" },
             mb: { xs: 4, md: 0 },
           }}
         >
           <FilterSidebar filters={filters} onChange={handleFilterChange} />
         </Box>
-        {/* Whisky Cards */}
+        {/* Whisky Cards Section */}
         <Box
           sx={{
             flex: 1,
+            background: "#A8B6A0",
+            borderRadius: 10,
+            p: 4,
             display: "grid",
             gridTemplateColumns: {
               xs: "1fr",
               sm: "1fr 1fr",
               md: "1fr 1fr 1fr",
             },
-            gap: 3,
+            gap: 4,
           }}
         >
           {filteredWhiskies.map((w) => (
