@@ -7,6 +7,7 @@ import whiskyData from "@assets/whisky.json";
 import MainBanner from "@components/MainBanner";
 import FilterSidebar from "@components/FilterSidebar";
 import WhiskyCard from "@components/WhiskyCard";
+import RegisterForm from "@components/RegisterForm";
 
 type Whisky = {
   Distillery: string;
