@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+import { TextField, Button, Stack, Typography } from "@mui/material";
 
 const schema = yup.object().shape({
   email: yup
@@ -45,27 +46,45 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>이메일</label>
-        <input {...register("email")} />
-        <p>
-          {typeof errors.email?.message === "string"
-            ? errors.email.message
-            : ""}
-        </p>
-      </div>
-      <div>
-        <label>비밀번호</label>
-        <input type="password" {...register("password")} />
-        <p>
-          {typeof errors.password?.message === "string"
-            ? errors.password.message
-            : ""}
-        </p>
-      </div>
-      <button type="submit" disabled={isSubmitting}>
-        로그인
-      </button>
+      <Stack spacing={2}>
+        <TextField
+          label="이메일"
+          variant="outlined"
+          size="small"
+          fullWidth
+          {...register("email")}
+          error={!!errors.email}
+          helperText={errors.email?.message as string}
+          sx={{ background: "#fff", borderRadius: 1 }}
+        />
+        <TextField
+          label="비밀번호"
+          type="password"
+          variant="outlined"
+          size="small"
+          fullWidth
+          {...register("password")}
+          error={!!errors.password}
+          helperText={errors.password?.message as string}
+          sx={{ background: "#fff", borderRadius: 1 }}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          size="large"
+          disabled={isSubmitting}
+          sx={{ fontWeight: 700, mt: 1 }}
+        >
+          로그인
+        </Button>
+        {errors.password?.message && (
+          <Typography color="error" fontSize={14} textAlign="center">
+            {errors.password.message as string}
+          </Typography>
+        )}
+      </Stack>
     </form>
   );
 }
