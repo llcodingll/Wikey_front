@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import whiskyData from "@assets/whisky.json";
@@ -59,6 +59,27 @@ const MainPage = () => {
       }}
     >
       <MainBanner onSurveyClick={handleSurveyClick} />
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="flex-end"
+        sx={{ maxWidth: 1400, mx: "auto", mt: 2 }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/login")}
+        >
+          로그인
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => navigate("/register")}
+        >
+          회원가입
+        </Button>
+      </Stack>
       <Box
         sx={{
           display: "flex",

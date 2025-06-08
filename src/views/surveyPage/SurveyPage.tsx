@@ -66,7 +66,7 @@ const SurveyPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(180deg, #E8D9C7 0%, #F6F4F3 100%)",
+        background: "#254034",
         fontFamily: "Pretendard, sans-serif",
         p: 2,
       }}
@@ -75,14 +75,14 @@ const SurveyPage = () => {
         elevation={0}
         sx={{
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 500,
           borderRadius: 5,
           boxShadow: "0 6px 24px 0 rgba(80, 60, 30, 0.12)",
           overflow: "hidden",
-          background: "rgba(255, 253, 250, 0.95)",
+          background: "#fffdfa",
           border: "1px solid #D4C7B0",
-          px: { xs: 2, sm: 3 },
-          py: { xs: 4, sm: 5 },
+          px: { xs: 2, sm: 4 },
+          py: { xs: 4, sm: 6 },
           textAlign: "center",
         }}
       >
