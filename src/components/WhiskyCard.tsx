@@ -1,6 +1,12 @@
-import { Card, Typography, Box } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Box,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 
-const LEVEL_EMOJI = '🟤';
+const LEVEL_EMOJI = "🟤";
 
 interface WhiskyCardProps {
   distillery: string;
@@ -9,6 +15,8 @@ interface WhiskyCardProps {
   smoky: number;
   fruity: number;
   floral: number;
+  isCompared?: boolean;
+  onCompareChange?: (checked: boolean) => void;
 }
 
 const renderEmojis = (value: number) => {
@@ -23,6 +31,8 @@ const WhiskyCard = ({
   smoky,
   fruity,
   floral,
+  isCompared = false,
+  onCompareChange,
 }: WhiskyCardProps) => (
   <Card
     sx={{
@@ -44,14 +54,29 @@ const WhiskyCard = ({
       },
     }}
   >
-    <Typography
-      variant="h6"
-      fontWeight="bold"
-      color="#B48A78"
-      sx={{ mb: 1, letterSpacing: "-0.5px" }}
-    >
-      {distillery}
-    </Typography>
+    <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Typography
+        variant="h6"
+        fontWeight="bold"
+        color="#B48A78"
+        sx={{ mb: 1, letterSpacing: "-0.5px" }}
+      >
+        {distillery}
+      </Typography>
+      {onCompareChange && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isCompared}
+              onChange={(e) => onCompareChange(e.target.checked)}
+              color="primary"
+              size="small"
+            />
+          }
+          label="Compare"
+        />
+      )}
+    </Box>
     <Box
       sx={{
         display: "flex",
@@ -63,7 +88,9 @@ const WhiskyCard = ({
       }}
     >
       <Typography variant="body2">Body: {renderEmojis(body)}</Typography>
-      <Typography variant="body2">Sweetness: {renderEmojis(sweetness)}</Typography>
+      <Typography variant="body2">
+        Sweetness: {renderEmojis(sweetness)}
+      </Typography>
       <Typography variant="body2">Smoky: {renderEmojis(smoky)}</Typography>
       <Typography variant="body2">Fruity: {renderEmojis(fruity)}</Typography>
       <Typography variant="body2">Floral: {renderEmojis(floral)}</Typography>

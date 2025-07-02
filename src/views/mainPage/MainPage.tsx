@@ -1,6 +1,18 @@
 import { useState, useMemo } from "react";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack, Chip, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 import whiskyData from "@assets/whisky.json";
 
@@ -8,6 +20,9 @@ import MainBanner from "@components/MainBanner";
 import FilterSidebar from "@components/FilterSidebar";
 import WhiskyCard from "@components/WhiskyCard";
 import RegisterForm from "@components/RegisterForm";
+import WhiskyRadarChart, {
+  WhiskyCharacteristic,
+} from "@components/WhiskyRadarChart";
 
 type Whisky = {
   Distillery: string;
@@ -28,6 +43,8 @@ const defaultFilters = {
 
 const MainPage = () => {
   const [filters, setFilters] = useState(defaultFilters);
+  const [comparedWhiskies, setComparedWhiskies] = useState<string[]>([]);
+  const [compareOpen, setCompareOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleFilterChange = (key: string, value: number) => {
@@ -36,6 +53,17 @@ const MainPage = () => {
 
   const handleSurveyClick = () => {
     navigate("/survey");
+  };
+
+  const handleCompareChange = (distillery: string, checked: boolean) => {
+    setComparedWhiskies((prev) => {
+      if (checked) {
+        if (prev.length >= 4) return prev;
+        return [...prev, distillery];
+      } else {
+        return prev.filter((d) => d !== distillery);
+      }
+    });
   };
 
   const filteredWhiskies = useMemo(
@@ -50,6 +78,24 @@ const MainPage = () => {
     [filters]
   );
 
+  // Get full whisky info for compared whiskies
+  const comparedWhiskyInfos = useMemo(
+    () =>
+      comparedWhiskies
+        .map((name) => (whiskyData as any[]).find((w) => w.Distillery === name))
+        .filter(Boolean),
+    [comparedWhiskies]
+  );
+
+  // Prepare radar chart data for all compared whiskies
+  const radarChartData = comparedWhiskyInfos.map((w) => [
+    { characteristic: "Body", value: w.Body },
+    { characteristic: "Sweetness", value: w.Sweetness },
+    { characteristic: "Smoky", value: w.Smoky },
+    { characteristic: "Fruity", value: w.Fruity },
+    { characteristic: "Floral", value: w.Floral },
+  ]);
+
   return (
     <Box
       sx={{
@@ -58,6 +104,95 @@ const MainPage = () => {
         p: { xs: 2, md: 6 },
       }}
     >
+      {/* Compare Bar */}
+      {comparedWhiskies.length > 0 && (
+        <Paper
+          elevation={3}
+          sx={{
+            position: "sticky",
+            top: 0,
+            zIndex: 100,
+            mb: 2,
+            p: 2,
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            background: "#fffdfa",
+            border: "1px solid #D4C7B0",
+            borderRadius: 3,
+          }}
+        >
+          <span style={{ fontWeight: 600, color: "#6D4C2C" }}>Compare:</span>
+          {comparedWhiskies.map((name) => (
+            <Chip key={name} label={name} color="primary" />
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={comparedWhiskies.length < 2}
+            onClick={() => setCompareOpen(true)}
+          >
+            Compare
+          </Button>
+        </Paper>
+      )}
+      {/* Compare Modal/Section */}
+      <Dialog
+        open={compareOpen}
+        onClose={() => setCompareOpen(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          Whisky Comparison
+          <IconButton
+            aria-label="close"
+            onClick={() => setCompareOpen(false)}
+            sx={{ position: "absolute", right: 8, top: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          {/* Table Comparison */}
+          <Table size="small" sx={{ mb: 4 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Characteristic</TableCell>
+                {comparedWhiskyInfos.map((w) => (
+                  <TableCell key={w.Distillery} align="center">
+                    {w.Distillery}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {["Body", "Sweetness", "Smoky", "Fruity", "Floral"].map(
+                (charKey) => (
+                  <TableRow key={charKey}>
+                    <TableCell>{charKey}</TableCell>
+                    {comparedWhiskyInfos.map((w) => (
+                      <TableCell key={w.Distillery + charKey} align="center">
+                        {w[charKey]}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
+          {/* Radar Chart Comparison */}
+          <Box sx={{ width: "100%", height: 350 }}>
+            <WhiskyRadarChart
+              data={[]}
+              // @ts-ignore
+              multiData={radarChartData}
+              // We'll update WhiskyRadarChart to support multiData below
+              comparedNames={comparedWhiskyInfos.map((w) => w.Distillery)}
+            />
+          </Box>
+        </DialogContent>
+      </Dialog>
       <MainBanner onSurveyClick={handleSurveyClick} />
       <Stack
         direction="row"
@@ -125,6 +260,10 @@ const MainPage = () => {
               smoky={w.Smoky}
               fruity={w.Fruity}
               floral={w.Floral}
+              isCompared={comparedWhiskies.includes(w.Distillery)}
+              onCompareChange={(checked) =>
+                handleCompareChange(w.Distillery, checked)
+              }
             />
           ))}
         </Box>
