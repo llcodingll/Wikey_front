@@ -10,9 +10,15 @@ import {
   CardMedia,
   Divider,
   Alert,
+  Button,
 } from "@mui/material";
 import SimilarUserRecommendation from "../../components/SimilarUserRecommendation";
 import { submitSurvey } from "../../services/surveyApi";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import WhiskyRadarChart, {
+  WhiskyCharacteristic,
+} from "../../components/WhiskyRadarChart";
 
 type Answers = {
   body: number;
@@ -108,6 +114,68 @@ const SurveyResultPage = () => {
     .sort((a, b) => a.score - b.score)
     .slice(0, 3);
 
+  // Prepare radar chart data for user taste profile
+  const radarData: WhiskyCharacteristic[] = [
+    { characteristic: "Body", value: answers.body },
+    { characteristic: "Sweetness", value: answers.sweetness },
+    { characteristic: "Smoky", value: answers.smoky },
+    { characteristic: "Fruity", value: answers.fruity },
+    { characteristic: "Floral", value: answers.floral },
+  ];
+
+  // PDF generation function
+  const handleDownloadReport = async () => {
+    const doc = new jsPDF();
+    const now = new Date();
+    // Title
+    doc.setFontSize(20);
+    doc.text("Whisky Taste Analysis Report", 105, 18, { align: "center" });
+    doc.setFontSize(11);
+    doc.text(
+      `Date: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`,
+      14,
+      28
+    );
+    doc.text(`User: ${userEmail}`, 14, 36);
+    // Taste Profile
+    doc.setFontSize(14);
+    doc.text("Your Taste Profile", 14, 48);
+    doc.setFontSize(11);
+    doc.text(
+      [
+        `Body: ${answers.body}`,
+        `Sweetness: ${answers.sweetness}`,
+        `Smoky: ${answers.smoky}`,
+        `Fruity: ${answers.fruity}`,
+        `Floral: ${answers.floral}`,
+      ].join("  |  "),
+      14,
+      56
+    );
+    // Radar Chart (capture)
+    const chartElem = document.getElementById("user-taste-radar");
+    if (chartElem) {
+      const canvas = await html2canvas(chartElem);
+      const imgData = canvas.toDataURL("image/png");
+      doc.addImage(imgData, "PNG", 14, 62, 80, 60);
+    }
+    // Recommended Whiskies
+    doc.setFontSize(14);
+    doc.text("Recommended Whiskies", 14, 130);
+    doc.setFontSize(11);
+    let y = 138;
+    sorted.forEach((w, idx) => {
+      doc.text(
+        `${idx + 1}. ${w.Distillery}  |  Body: ${w.Body}  Sweetness: ${w.Sweetness}  Smoky: ${w.Smoky}  Fruity: ${w.Fruity}  Floral: ${w.Floral}  (Score: ${w.score})`,
+        14,
+        y
+      );
+      y += 8;
+    });
+    // Save PDF
+    doc.save("whisky-taste-report.pdf");
+  };
+
   return (
     <Box
       sx={{
@@ -127,6 +195,31 @@ const SurveyResultPage = () => {
         >
           Recommended Whiskies for You
         </Typography>
+        {/* Download Report Button */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleDownloadReport}
+          >
+            Download Report
+          </Button>
+        </Box>
+        {/* Taste Profile Radar Chart (for PDF capture) */}
+        <Box
+          id="user-taste-radar"
+          sx={{
+            width: 320,
+            height: 260,
+            mx: "auto",
+            mb: 3,
+            background: "#fff",
+            borderRadius: 2,
+            p: 2,
+          }}
+        >
+          <WhiskyRadarChart data={radarData} />
+        </Box>
 
         {submitError && (
           <Alert severity="error" sx={{ mb: 3 }}>
