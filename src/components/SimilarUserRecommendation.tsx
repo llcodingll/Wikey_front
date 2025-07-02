@@ -14,6 +14,8 @@ import {
   getRecommendationBySimilarUsers,
   getSimilarUserCount,
 } from "../services/surveyApi";
+import WhiskyRadarChart, { WhiskyCharacteristic } from "./WhiskyRadarChart";
+import whiskyData from "../assets/whisky.json";
 
 interface SimilarUserRecommendationProps {
   userEmail: string;
@@ -140,40 +142,65 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
 
         {recommendations.length > 0 ? (
           <Stack spacing={2}>
-            {recommendations.map((whisky, index) => (
-              <Box
-                key={whisky}
-                sx={{
-                  p: 2,
-                  background: "#F6F4F3",
-                  borderRadius: 2,
-                  border: "1px solid #E8E0D8",
-                }}
-              >
+            {recommendations.map((whisky, index) => {
+              // Find whisky characteristics by name
+              const whiskyInfo = (whiskyData as any[]).find(
+                (w) => w.Distillery === whisky
+              );
+              // Prepare radar chart data
+              const radarData: WhiskyCharacteristic[] = whiskyInfo
+                ? [
+                    { characteristic: "Body", value: whiskyInfo.Body },
+                    {
+                      characteristic: "Sweetness",
+                      value: whiskyInfo.Sweetness,
+                    },
+                    { characteristic: "Smoky", value: whiskyInfo.Smoky },
+                    { characteristic: "Fruity", value: whiskyInfo.Fruity },
+                    { characteristic: "Floral", value: whiskyInfo.Floral },
+                  ]
+                : [];
+              return (
                 <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
+                  key={whisky}
+                  sx={{
+                    p: 2,
+                    background: "#F6F4F3",
+                    borderRadius: 2,
+                    border: "1px solid #E8E0D8",
+                  }}
                 >
-                  <Typography
-                    variant="subtitle1"
-                    fontWeight="bold"
-                    color="#6D4C2C"
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
                   >
-                    {index + 1}. {whisky}
-                  </Typography>
-                  <Chip
-                    label="추천"
-                    size="small"
-                    sx={{
-                      background: "#889982",
-                      color: "white",
-                      fontSize: "0.75rem",
-                    }}
-                  />
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      color="#6D4C2C"
+                    >
+                      {index + 1}. {whisky}
+                    </Typography>
+                    <Chip
+                      label="Recommended"
+                      size="small"
+                      sx={{
+                        background: "#889982",
+                        color: "white",
+                        fontSize: "0.75rem",
+                      }}
+                    />
+                  </Box>
+                  {/* Radar Chart for whisky characteristics */}
+                  {radarData.length > 0 && (
+                    <Box mt={2}>
+                      <WhiskyRadarChart data={radarData} />
+                    </Box>
+                  )}
                 </Box>
-              </Box>
-            ))}
+              );
+            })}
           </Stack>
         ) : (
           <Typography color="#889982">
