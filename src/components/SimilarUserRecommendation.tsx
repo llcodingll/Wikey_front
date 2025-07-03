@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -9,13 +9,10 @@ import {
   Chip,
   CircularProgress,
   Alert,
-} from "@mui/material";
-import {
-  getRecommendationBySimilarUsers,
-  getSimilarUserCount,
-} from "../services/surveyApi";
-import WhiskyRadarChart, { WhiskyCharacteristic } from "./WhiskyRadarChart";
-import whiskyData from "../assets/whisky.json";
+} from '@mui/material';
+import { getRecommendationBySimilarUsers, getSimilarUserCount } from '../services/surveyApi';
+import WhiskyRadarChart, { WhiskyCharacteristic } from './WhiskyRadarChart';
+import whiskyData from '../assets/whisky.json';
 
 interface SimilarUserRecommendationProps {
   userEmail: string;
@@ -46,15 +43,15 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
       if (countResponse.similarUserCount > 0) {
         const recommendResponse = await getRecommendationBySimilarUsers(
           userEmail,
-          maxRecommendations
+          maxRecommendations,
         );
         setRecommendations(recommendResponse.recommendedWhiskies);
       } else {
         setRecommendations([]);
       }
     } catch (err) {
-      setError("추천을 불러오는 중 오류가 발생했습니다.");
-      console.error("Error fetching recommendations:", err);
+      setError('추천을 불러오는 중 오류가 발생했습니다.');
+      console.error('Error fetching recommendations:', err);
     } finally {
       setLoading(false);
     }
@@ -66,12 +63,7 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
 
   if (loading) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="200px"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
         <CircularProgress />
       </Box>
     );
@@ -89,24 +81,19 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
     return (
       <Card
         sx={{
-          background: "#fffdfa",
-          border: "1px solid #D4C7B0",
+          background: '#fffdfa',
+          border: '1px solid #D4C7B0',
           borderRadius: 3,
           mb: 3,
         }}
       >
         <CardContent>
-          <Typography
-            variant="h6"
-            fontWeight="bold"
-            color="#6D4C2C"
-            gutterBottom
-          >
+          <Typography variant="h6" fontWeight="bold" color="#6D4C2C" gutterBottom>
             유사한 사용자 기반 추천
           </Typography>
           <Typography color="#889982">
-            아직 유사한 취향을 가진 다른 사용자가 없습니다. 더 많은 사용자가
-            설문을 완료하면 개인화된 추천을 받을 수 있습니다.
+            아직 유사한 취향을 가진 다른 사용자가 없습니다. 더 많은 사용자가 설문을 완료하면
+            개인화된 추천을 받을 수 있습니다.
           </Typography>
         </CardContent>
       </Card>
@@ -116,19 +103,14 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
   return (
     <Card
       sx={{
-        background: "#fffdfa",
-        border: "1px solid #D4C7B0",
+        background: '#fffdfa',
+        border: '1px solid #D4C7B0',
         borderRadius: 3,
         mb: 3,
       }}
     >
       <CardContent>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={2}
-        >
+        <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
           <Typography variant="h6" fontWeight="bold" color="#6D4C2C">
             유사한 사용자들이 선호하는 위스키
           </Typography>
@@ -136,7 +118,7 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
             label={`${similarUserCount}명의 유사한 사용자`}
             color="primary"
             size="small"
-            sx={{ background: "#A8B6A0", color: "#254034" }}
+            sx={{ background: '#A8B6A0', color: '#254034' }}
           />
         </Box>
 
@@ -144,20 +126,18 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
           <Stack spacing={2}>
             {recommendations.map((whisky, index) => {
               // Find whisky characteristics by name
-              const whiskyInfo = (whiskyData as any[]).find(
-                (w) => w.Distillery === whisky
-              );
+              const whiskyInfo = (whiskyData as any[]).find((w) => w.Distillery === whisky);
               // Prepare radar chart data
               const radarData: WhiskyCharacteristic[] = whiskyInfo
                 ? [
-                    { characteristic: "Body", value: whiskyInfo.Body },
+                    { characteristic: 'Body', value: whiskyInfo.Body },
                     {
-                      characteristic: "Sweetness",
+                      characteristic: 'Sweetness',
                       value: whiskyInfo.Sweetness,
                     },
-                    { characteristic: "Smoky", value: whiskyInfo.Smoky },
-                    { characteristic: "Fruity", value: whiskyInfo.Fruity },
-                    { characteristic: "Floral", value: whiskyInfo.Floral },
+                    { characteristic: 'Smoky', value: whiskyInfo.Smoky },
+                    { characteristic: 'Fruity', value: whiskyInfo.Fruity },
+                    { characteristic: 'Floral', value: whiskyInfo.Floral },
                   ]
                 : [];
               return (
@@ -165,30 +145,22 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
                   key={whisky}
                   sx={{
                     p: 2,
-                    background: "#F6F4F3",
+                    background: '#F6F4F3',
                     borderRadius: 2,
-                    border: "1px solid #E8E0D8",
+                    border: '1px solid #E8E0D8',
                   }}
                 >
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      variant="subtitle1"
-                      fontWeight="bold"
-                      color="#6D4C2C"
-                    >
+                  <Box display="flex" alignItems="center" justifyContent="space-between">
+                    <Typography variant="subtitle1" fontWeight="bold" color="#6D4C2C">
                       {index + 1}. {whisky}
                     </Typography>
                     <Chip
                       label="Recommended"
                       size="small"
                       sx={{
-                        background: "#889982",
-                        color: "white",
-                        fontSize: "0.75rem",
+                        background: '#889982',
+                        color: 'white',
+                        fontSize: '0.75rem',
                       }}
                     />
                   </Box>
@@ -213,11 +185,11 @@ const SimilarUserRecommendation: React.FC<SimilarUserRecommendationProps> = ({
             variant="outlined"
             onClick={fetchRecommendations}
             sx={{
-              borderColor: "#A8B6A0",
-              color: "#6D4C2C",
-              "&:hover": {
-                borderColor: "#889982",
-                background: "#F6F4F3",
+              borderColor: '#A8B6A0',
+              color: '#6D4C2C',
+              '&:hover': {
+                borderColor: '#889982',
+                background: '#F6F4F3',
               },
             }}
           >

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 interface Keyword {
   label: string;
@@ -12,9 +12,9 @@ interface SurveyResultKeywordsProps {
 }
 
 const SurveyResultKeywords = ({ keywords }: SurveyResultKeywordsProps) => (
-  <Box sx={{ background: "#254034", borderRadius: 3, p: 3, mb: 4 }}>
+  <Box sx={{ background: '#254034', borderRadius: 3, p: 3, mb: 4 }}>
     {keywords.map((kw) => (
-      <Box key={kw.label} sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+      <Box key={kw.label} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
         <Box sx={{ mr: 2, color: kw.color }}>{kw.icon}</Box>
         <Box>
           <Typography fontWeight={700} color={kw.color} sx={{ mb: 0.5 }}>

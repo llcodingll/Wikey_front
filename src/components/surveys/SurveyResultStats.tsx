@@ -1,4 +1,4 @@
-import { Box, Typography, LinearProgress, Stack } from "@mui/material";
+import { Box, Typography, LinearProgress, Stack } from '@mui/material';
 
 interface Stat {
   labelLeft: string;
@@ -7,7 +7,7 @@ interface Stat {
   rightShort: string;
   leftValue: number;
   rightValue: number;
-  activeSide: "left" | "right";
+  activeSide: 'left' | 'right';
 }
 
 interface SurveyResultStatsProps {
@@ -15,14 +15,10 @@ interface SurveyResultStatsProps {
 }
 
 const SurveyResultStats = ({ stats }: SurveyResultStatsProps) => (
-  <Box sx={{ background: "#F6F4F3", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
+  <Box sx={{ background: '#F6F4F3', borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
     {stats.map((stat) => (
       <Box key={stat.labelLeft} sx={{ mb: 2 }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography fontWeight={700} color="#6D4C2C">
             {stat.labelLeft}
           </Typography>
@@ -41,9 +37,9 @@ const SurveyResultStats = ({ stats }: SurveyResultStatsProps) => (
               flex: 1,
               height: 12,
               borderRadius: 6,
-              background: "#f9e6c7",
-              "& .MuiLinearProgress-bar": {
-                background: "#B48A78",
+              background: '#f9e6c7',
+              '& .MuiLinearProgress-bar': {
+                background: '#B48A78',
               },
             }}
           />

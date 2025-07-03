@@ -1,6 +1,6 @@
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import whiskyData from "@assets/whisky.json";
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import whiskyData from '@assets/whisky.json';
 import {
   Box,
   Typography,
@@ -11,14 +11,12 @@ import {
   Divider,
   Alert,
   Button,
-} from "@mui/material";
-import SimilarUserRecommendation from "../../components/SimilarUserRecommendation";
-import { submitSurvey } from "../../services/surveyApi";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import WhiskyRadarChart, {
-  WhiskyCharacteristic,
-} from "../../components/WhiskyRadarChart";
+} from '@mui/material';
+import SimilarUserRecommendation from '../../components/SimilarUserRecommendation';
+import { submitSurvey } from '../../services/surveyApi';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import WhiskyRadarChart, { WhiskyCharacteristic } from '../../components/WhiskyRadarChart';
 
 type Answers = {
   body: number;
@@ -52,14 +50,14 @@ const SurveyResultPage = () => {
   const location = useLocation();
   const answers: Answers = location.state?.answers;
   const regions: string[] = location.state?.regions || [];
-  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>('');
   const [surveySubmitted, setSurveySubmitted] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // 임시로 사용자 이메일 설정 (실제로는 로그인된 사용자 정보를 사용)
   useEffect(() => {
     // localStorage에서 사용자 이메일 가져오기 (실제 구현에서는 JWT 토큰에서 추출)
-    const email = localStorage.getItem("userEmail") || "test@user.com";
+    const email = localStorage.getItem('userEmail') || 'test@user.com';
     setUserEmail(email);
   }, []);
 
@@ -82,8 +80,8 @@ const SurveyResultPage = () => {
         await submitSurvey(request);
         setSurveySubmitted(true);
       } catch (error) {
-        console.error("Survey submission error:", error);
-        setSubmitError("설문 제출 중 오류가 발생했습니다.");
+        console.error('Survey submission error:', error);
+        setSubmitError('설문 제출 중 오류가 발생했습니다.');
       }
     };
 
@@ -96,11 +94,11 @@ const SurveyResultPage = () => {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
-          background: "#254034",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          minHeight: '100vh',
+          background: '#254034',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           p: 2,
         }}
       >
@@ -116,11 +114,11 @@ const SurveyResultPage = () => {
 
   // Prepare radar chart data for user taste profile
   const radarData: WhiskyCharacteristic[] = [
-    { characteristic: "Body", value: answers.body },
-    { characteristic: "Sweetness", value: answers.sweetness },
-    { characteristic: "Smoky", value: answers.smoky },
-    { characteristic: "Fruity", value: answers.fruity },
-    { characteristic: "Floral", value: answers.floral },
+    { characteristic: 'Body', value: answers.body },
+    { characteristic: 'Sweetness', value: answers.sweetness },
+    { characteristic: 'Smoky', value: answers.smoky },
+    { characteristic: 'Fruity', value: answers.fruity },
+    { characteristic: 'Floral', value: answers.floral },
   ];
 
   // PDF generation function
@@ -129,17 +127,13 @@ const SurveyResultPage = () => {
     const now = new Date();
     // Title
     doc.setFontSize(20);
-    doc.text("Whisky Taste Analysis Report", 105, 18, { align: "center" });
+    doc.text('Whisky Taste Analysis Report', 105, 18, { align: 'center' });
     doc.setFontSize(11);
-    doc.text(
-      `Date: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`,
-      14,
-      28
-    );
+    doc.text(`Date: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 14, 28);
     doc.text(`User: ${userEmail}`, 14, 36);
     // Taste Profile
     doc.setFontSize(14);
-    doc.text("Your Taste Profile", 14, 48);
+    doc.text('Your Taste Profile', 14, 48);
     doc.setFontSize(11);
     doc.text(
       [
@@ -148,60 +142,50 @@ const SurveyResultPage = () => {
         `Smoky: ${answers.smoky}`,
         `Fruity: ${answers.fruity}`,
         `Floral: ${answers.floral}`,
-      ].join("  |  "),
+      ].join('  |  '),
       14,
-      56
+      56,
     );
     // Radar Chart (capture)
-    const chartElem = document.getElementById("user-taste-radar");
+    const chartElem = document.getElementById('user-taste-radar');
     if (chartElem) {
       const canvas = await html2canvas(chartElem);
-      const imgData = canvas.toDataURL("image/png");
-      doc.addImage(imgData, "PNG", 14, 62, 80, 60);
+      const imgData = canvas.toDataURL('image/png');
+      doc.addImage(imgData, 'PNG', 14, 62, 80, 60);
     }
     // Recommended Whiskies
     doc.setFontSize(14);
-    doc.text("Recommended Whiskies", 14, 130);
+    doc.text('Recommended Whiskies', 14, 130);
     doc.setFontSize(11);
     let y = 138;
     sorted.forEach((w, idx) => {
       doc.text(
         `${idx + 1}. ${w.Distillery}  |  Body: ${w.Body}  Sweetness: ${w.Sweetness}  Smoky: ${w.Smoky}  Fruity: ${w.Fruity}  Floral: ${w.Floral}  (Score: ${w.score})`,
         14,
-        y
+        y,
       );
       y += 8;
     });
     // Save PDF
-    doc.save("whisky-taste-report.pdf");
+    doc.save('whisky-taste-report.pdf');
   };
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        background: "#254034",
-        fontFamily: "Pretendard, sans-serif",
+        minHeight: '100vh',
+        background: '#254034',
+        fontFamily: 'Pretendard, sans-serif',
         p: 2,
       }}
     >
-      <Box sx={{ pt: 5, pb: 8, maxWidth: 800, width: "100%", mx: "auto" }}>
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          mb={4}
-          color="#6D4C2C"
-          align="center"
-        >
+      <Box sx={{ pt: 5, pb: 8, maxWidth: 800, width: '100%', mx: 'auto' }}>
+        <Typography variant="h4" fontWeight="bold" mb={4} color="#6D4C2C" align="center">
           Recommended Whiskies for You
         </Typography>
         {/* Download Report Button */}
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleDownloadReport}
-          >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <Button variant="contained" color="primary" onClick={handleDownloadReport}>
             Download Report
           </Button>
         </Box>
@@ -211,9 +195,9 @@ const SurveyResultPage = () => {
           sx={{
             width: 320,
             height: 260,
-            mx: "auto",
+            mx: 'auto',
             mb: 3,
-            background: "#fff",
+            background: '#fff',
             borderRadius: 2,
             p: 2,
           }}
@@ -230,19 +214,14 @@ const SurveyResultPage = () => {
         {/* 기존 추천 결과 */}
         <Card
           sx={{
-            background: "#fffdfa",
-            border: "1px solid #D4C7B0",
+            background: '#fffdfa',
+            border: '1px solid #D4C7B0',
             borderRadius: 3,
             mb: 3,
           }}
         >
           <CardContent>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              color="#6D4C2C"
-              gutterBottom
-            >
+            <Typography variant="h6" fontWeight="bold" color="#6D4C2C" gutterBottom>
               취향 기반 추천
             </Typography>
             <Stack spacing={3}>
@@ -250,11 +229,11 @@ const SurveyResultPage = () => {
                 <Card
                   key={w.Distillery}
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
+                    display: 'flex',
+                    alignItems: 'center',
                     p: 2,
-                    background: "#F6F4F3",
-                    border: "1px solid #E8E0D8",
+                    background: '#F6F4F3',
+                    border: '1px solid #E8E0D8',
                     borderRadius: 2,
                   }}
                 >
@@ -270,11 +249,11 @@ const SurveyResultPage = () => {
                     <Typography variant="h6" fontWeight="bold" color="#6D4C2C">
                       {w.Distillery}
                     </Typography>
-                    <Typography sx={{ fontSize: 15, color: "#889982" }}>
-                      Body: {w.Body} / Sweetness: {w.Sweetness} / Smoky:{" "}
-                      {w.Smoky} / Fruity: {w.Fruity} / Floral: {w.Floral}
+                    <Typography sx={{ fontSize: 15, color: '#889982' }}>
+                      Body: {w.Body} / Sweetness: {w.Sweetness} / Smoky: {w.Smoky} / Fruity:{' '}
+                      {w.Fruity} / Floral: {w.Floral}
                     </Typography>
-                    <Typography sx={{ color: "#AAA", fontSize: 13 }}>
+                    <Typography sx={{ color: '#AAA', fontSize: 13 }}>
                       Recommendation Score: {w.score}
                     </Typography>
                   </CardContent>
@@ -284,15 +263,10 @@ const SurveyResultPage = () => {
           </CardContent>
         </Card>
 
-        <Divider sx={{ my: 3, borderColor: "#D4C7B0" }} />
+        <Divider sx={{ my: 3, borderColor: '#D4C7B0' }} />
 
         {/* 유사한 사용자 기반 추천 */}
-        {userEmail && (
-          <SimilarUserRecommendation
-            userEmail={userEmail}
-            maxRecommendations={5}
-          />
-        )}
+        {userEmail && <SimilarUserRecommendation userEmail={userEmail} maxRecommendations={5} />}
       </Box>
     </Box>
   );

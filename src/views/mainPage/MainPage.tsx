@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
-import { Box, Button, Stack, Chip, Paper } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useState, useMemo } from 'react';
+import { Box, Button, Stack, Chip, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import {
   Dialog,
   DialogTitle,
@@ -11,18 +11,16 @@ import {
   TableCell,
   TableHead,
   TableRow,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-import whiskyData from "@assets/whisky.json";
+import whiskyData from '@assets/whisky.json';
 
-import MainBanner from "@components/MainBanner";
-import FilterSidebar from "@components/FilterSidebar";
-import WhiskyCard from "@components/WhiskyCard";
-import RegisterForm from "@components/RegisterForm";
-import WhiskyRadarChart, {
-  WhiskyCharacteristic,
-} from "@components/WhiskyRadarChart";
+import MainBanner from '@components/MainBanner';
+import FilterSidebar from '@components/FilterSidebar';
+import WhiskyCard from '@components/WhiskyCard';
+import RegisterForm from '@components/RegisterForm';
+import WhiskyRadarChart, { WhiskyCharacteristic } from '@components/WhiskyRadarChart';
 
 type Whisky = {
   Distillery: string;
@@ -52,7 +50,7 @@ const MainPage = () => {
   };
 
   const handleSurveyClick = () => {
-    navigate("/survey");
+    navigate('/survey');
   };
 
   const handleCompareChange = (distillery: string, checked: boolean) => {
@@ -73,9 +71,9 @@ const MainPage = () => {
           const whiskyKey = key.charAt(0).toUpperCase() + key.slice(1);
           // @ts-ignore
           return value === 0 || w[whiskyKey] >= value;
-        })
+        }),
       ),
-    [filters]
+    [filters],
   );
 
   // Get full whisky info for compared whiskies
@@ -84,23 +82,23 @@ const MainPage = () => {
       comparedWhiskies
         .map((name) => (whiskyData as any[]).find((w) => w.Distillery === name))
         .filter(Boolean),
-    [comparedWhiskies]
+    [comparedWhiskies],
   );
 
   // Prepare radar chart data for all compared whiskies
   const radarChartData = comparedWhiskyInfos.map((w) => [
-    { characteristic: "Body", value: w.Body },
-    { characteristic: "Sweetness", value: w.Sweetness },
-    { characteristic: "Smoky", value: w.Smoky },
-    { characteristic: "Fruity", value: w.Fruity },
-    { characteristic: "Floral", value: w.Floral },
+    { characteristic: 'Body', value: w.Body },
+    { characteristic: 'Sweetness', value: w.Sweetness },
+    { characteristic: 'Smoky', value: w.Smoky },
+    { characteristic: 'Fruity', value: w.Fruity },
+    { characteristic: 'Floral', value: w.Floral },
   ]);
 
   return (
     <Box
       sx={{
-        background: "#254034",
-        minHeight: "100vh",
+        background: '#254034',
+        minHeight: '100vh',
         p: { xs: 2, md: 6 },
       }}
     >
@@ -109,20 +107,20 @@ const MainPage = () => {
         <Paper
           elevation={3}
           sx={{
-            position: "sticky",
+            position: 'sticky',
             top: 0,
             zIndex: 100,
             mb: 2,
             p: 2,
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             gap: 2,
-            background: "#fffdfa",
-            border: "1px solid #D4C7B0",
+            background: '#fffdfa',
+            border: '1px solid #D4C7B0',
             borderRadius: 3,
           }}
         >
-          <span style={{ fontWeight: 600, color: "#6D4C2C" }}>Compare:</span>
+          <span style={{ fontWeight: 600, color: '#6D4C2C' }}>Compare:</span>
           {comparedWhiskies.map((name) => (
             <Chip key={name} label={name} color="primary" />
           ))}
@@ -137,18 +135,13 @@ const MainPage = () => {
         </Paper>
       )}
       {/* Compare Modal/Section */}
-      <Dialog
-        open={compareOpen}
-        onClose={() => setCompareOpen(false)}
-        maxWidth="md"
-        fullWidth
-      >
+      <Dialog open={compareOpen} onClose={() => setCompareOpen(false)} maxWidth="md" fullWidth>
         <DialogTitle>
           Whisky Comparison
           <IconButton
             aria-label="close"
             onClick={() => setCompareOpen(false)}
-            sx={{ position: "absolute", right: 8, top: 8 }}
+            sx={{ position: 'absolute', right: 8, top: 8 }}
           >
             <CloseIcon />
           </IconButton>
@@ -167,22 +160,20 @@ const MainPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {["Body", "Sweetness", "Smoky", "Fruity", "Floral"].map(
-                (charKey) => (
-                  <TableRow key={charKey}>
-                    <TableCell>{charKey}</TableCell>
-                    {comparedWhiskyInfos.map((w) => (
-                      <TableCell key={w.Distillery + charKey} align="center">
-                        {w[charKey]}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                )
-              )}
+              {['Body', 'Sweetness', 'Smoky', 'Fruity', 'Floral'].map((charKey) => (
+                <TableRow key={charKey}>
+                  <TableCell>{charKey}</TableCell>
+                  {comparedWhiskyInfos.map((w) => (
+                    <TableCell key={w.Distillery + charKey} align="center">
+                      {w[charKey]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           {/* Radar Chart Comparison */}
-          <Box sx={{ width: "100%", height: 350 }}>
+          <Box sx={{ width: '100%', height: 350 }}>
             <WhiskyRadarChart
               data={[]}
               // @ts-ignore
@@ -198,38 +189,30 @@ const MainPage = () => {
         direction="row"
         spacing={2}
         justifyContent="flex-end"
-        sx={{ maxWidth: 1400, mx: "auto", mt: 2 }}
+        sx={{ maxWidth: 1400, mx: 'auto', mt: 2 }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate("/login")}
-        >
+        <Button variant="contained" color="primary" onClick={() => navigate('/login')}>
           로그인
         </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => navigate("/register")}
-        >
+        <Button variant="outlined" color="primary" onClick={() => navigate('/register')}>
           회원가입
         </Button>
       </Stack>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           gap: 6,
           mt: 2,
           maxWidth: 1400,
-          mx: "auto",
+          mx: 'auto',
         }}
       >
         {/* Sidebar */}
         <Box
           sx={{
-            flex: "0 0 260px",
-            width: { xs: "100%", md: "260px" },
+            flex: '0 0 260px',
+            width: { xs: '100%', md: '260px' },
             mb: { xs: 4, md: 0 },
           }}
         >
@@ -239,14 +222,14 @@ const MainPage = () => {
         <Box
           sx={{
             flex: 1,
-            background: "#A8B6A0",
+            background: '#A8B6A0',
             borderRadius: 10,
             p: 4,
-            display: "grid",
+            display: 'grid',
             gridTemplateColumns: {
-              xs: "1fr",
-              sm: "1fr 1fr",
-              md: "1fr 1fr 1fr",
+              xs: '1fr',
+              sm: '1fr 1fr',
+              md: '1fr 1fr 1fr',
             },
             gap: 4,
           }}
@@ -261,9 +244,7 @@ const MainPage = () => {
               fruity={w.Fruity}
               floral={w.Floral}
               isCompared={comparedWhiskies.includes(w.Distillery)}
-              onCompareChange={(checked) =>
-                handleCompareChange(w.Distillery, checked)
-              }
+              onCompareChange={(checked) => handleCompareChange(w.Distillery, checked)}
             />
           ))}
         </Box>

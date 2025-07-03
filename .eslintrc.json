@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "react/react-in-jsx-scope": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true
+  }
+} 

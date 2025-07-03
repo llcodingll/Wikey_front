@@ -25,7 +25,9 @@ export interface SimilarUsersResponse {
 }
 
 // 설문 제출
-export const submitSurvey = async (request: SurveySubmitRequest): Promise<SurveyRecommendResponse> => {
+export const submitSurvey = async (
+  request: SurveySubmitRequest,
+): Promise<SurveyRecommendResponse> => {
   const response = await axios.post('/api/survey/submit', request);
   return response.data;
 };
@@ -44,33 +46,33 @@ export const getRecommendationByUser = async (email: string): Promise<SurveyReco
 
 // 유사한 사용자 기반 추천
 export const getRecommendationBySimilarUsers = async (
-  email: string, 
-  maxRecommendations: number = 5
+  email: string,
+  maxRecommendations: number = 5,
 ): Promise<SurveyRecommendResponse> => {
   const response = await axios.get(
-    `/api/survey/result/similar-users?email=${email}&maxRecommendations=${maxRecommendations}`
+    `/api/survey/result/similar-users?email=${email}&maxRecommendations=${maxRecommendations}`,
   );
   return response.data;
 };
 
 // 유사한 사용자 수 조회
 export const getSimilarUserCount = async (
-  email: string, 
-  similarityThreshold: number = 0.6
+  email: string,
+  similarityThreshold: number = 0.6,
 ): Promise<SimilarUserCountResponse> => {
   const response = await axios.get(
-    `/api/survey/similar-users/similar-count?email=${email}&similarityThreshold=${similarityThreshold}`
+    `/api/survey/similar-users/similar-count?email=${email}&similarityThreshold=${similarityThreshold}`,
   );
   return response.data;
 };
 
 // 유사한 사용자 정보 조회
 export const getSimilarUsers = async (
-  email: string, 
-  similarityThreshold: number = 0.6
+  email: string,
+  similarityThreshold: number = 0.6,
 ): Promise<SimilarUsersResponse> => {
   const response = await axios.get(
-    `/api/survey/similar-users/similar-users?email=${email}&similarityThreshold=${similarityThreshold}`
+    `/api/survey/similar-users/similar-users?email=${email}&similarityThreshold=${similarityThreshold}`,
   );
   return response.data;
-}; 
+};

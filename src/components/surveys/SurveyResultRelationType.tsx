@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 interface RelationType {
   label: string;
@@ -12,20 +12,20 @@ interface SurveyResultRelationTypeProps {
 }
 
 const SurveyResultRelationType = ({ types }: SurveyResultRelationTypeProps) => (
-  <Box sx={{ background: "#F6F4F3", borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
-    <Typography variant="h6" fontWeight={800} sx={{ mb: 2, color: "#254034" }}>
+  <Box sx={{ background: '#F6F4F3', borderRadius: 3, p: 3, mb: 4, boxShadow: 1 }}>
+    <Typography variant="h6" fontWeight={800} sx={{ mb: 2, color: '#254034' }}>
       My Relationship Types
     </Typography>
-    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
       {types.map((t) => (
-        <Box key={t.label} sx={{ mr: 2, textAlign: "center" }}>
+        <Box key={t.label} sx={{ mr: 2, textAlign: 'center' }}>
           <Box
             sx={{
               width: 24,
               height: 24,
-              borderRadius: "50%",
+              borderRadius: '50%',
               background: t.color,
-              display: "inline-block",
+              display: 'inline-block',
               mb: 0.5,
             }}
           />
@@ -41,7 +41,7 @@ const SurveyResultRelationType = ({ types }: SurveyResultRelationTypeProps) => (
         <Typography fontWeight={700} color={t.color}>
           {t.label} Type
         </Typography>
-        <Typography sx={{ fontSize: 15, color: "#254034" }}>{t.description}</Typography>
+        <Typography sx={{ fontSize: 15, color: '#254034' }}>{t.description}</Typography>
       </Box>
     ))}
   </Box>

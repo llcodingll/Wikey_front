@@ -34,7 +34,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
   },
   "eslintConfig": {
     "extends": [

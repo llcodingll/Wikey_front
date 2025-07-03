@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Radar,
   RadarChart,
@@ -6,7 +6,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 // Define the type for a single characteristic
 export interface WhiskyCharacteristic {
@@ -22,14 +22,7 @@ interface WhiskyRadarChartProps {
   comparedNames?: string[];
 }
 
-const COLORS = [
-  "#8884d8",
-  "#82ca9d",
-  "#ffc658",
-  "#ff7300",
-  "#a83279",
-  "#2c3e50",
-];
+const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#a83279', '#2c3e50'];
 
 const WhiskyRadarChart: React.FC<WhiskyRadarChartProps> = ({
   data,
