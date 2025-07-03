@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Wiskey 프론트엔드
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 개요 및 목적
 
-## Available Scripts
+- Wiskey는 위스키 취향 설문을 기반으로 맞춤형 위스키를 추천하는 서비스입니다.
+- 설문, 추천 결과, 회원가입/로그인 등 다양한 UI를 제공합니다.
 
-In the project directory, you can run:
+## 주요 기능
 
-### `npm start`
+- 설문 응답 및 결과 시각화(차트, 키워드 등)
+- 회원가입/로그인/로그아웃
+- 유저별/유사 사용자 추천 결과 조회
+- 반응형 UI, 에러 처리, 접근성 고려
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 기술 스택 및 구조
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React 19, TypeScript, Node.js 18
+- MUI, Styled-components, Recharts 등
+- Axios(REST API 연동), React Hook Form
 
-### `npm test`
+### 폴더 구조
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+wiskey/frontend/
+├── src/
+│   ├── components/   # UI 컴포넌트
+│   ├── constants/    # 설문 문항 등 상수
+│   ├── services/     # API 연동
+│   ├── views/        # 주요 페이지
+│   └── styles/       # 전역 스타일
+├── public/           # 정적 리소스
+├── package.json      # 의존성/스크립트
+```
 
-### `npm run build`
+## 개발/실행/테스트/배포
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm ci
+npm start      # 개발 서버 실행
+npm run build  # 프로덕션 빌드
+npm test       # 테스트
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- API 서버 주소 등은 환경변수(.env) 또는 src/services/에서 관리
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## UI/UX 및 접근성
 
-### `npm run eject`
+- 반응형 레이아웃, MUI 기반 일관된 디자인
+- 에러 바운더리, 폼 검증 등 사용자 경험 강화
+- 접근성(A11y) 고려(키보드 네비게이션, 명확한 라벨 등)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 본인 역할 및 기여 포인트
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 전체 프론트엔드 구조 설계, UI/UX 구현, 상태 관리, API 연동 등 모든 과정을 단독으로 수행
+- 설문/추천 결과 시각화, 코드 품질 및 사용자 경험 개선에 집중
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 트러블슈팅/성장 경험
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- API 연동/에러 처리, 상태 관리 등 다양한 문제 해결 경험
+- 반응형 UI/UX 개선 및 접근성 향상 경험
+- 테스트 자동화 및 코드 품질 관리 경험
 
-## Learn More
+## 기타
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 추가 문의/기여는 이슈 또는 PR로 부탁드립니다.
